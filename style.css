@@ -194,12 +194,20 @@ body {
     justify-content: center;
   }
   
-  .profile-image {
-    width: 100%;
-    max-width: 300px;
-    border-radius: 20px;
-    box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
-  }
+/* Generel styling (bruges i About og andre sektioner) */
+.profile-image {
+  width: 100%;
+  max-width: 300px;
+  border-radius: 20px;
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
+}
+
+/* Hero-specifikt billede uden skygge */
+.section.hero .profile-image {
+  box-shadow: none;
+  border-radius: 0; /* hvis du også vil fjerne runding */
+}
+
   
   .typewriter {
     font-size: 1.6rem;
@@ -284,4 +292,75 @@ body {
   color: #4338ca;
 }
 
+  /* about */
+
+  .about-flex {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 60px 20px;
+    align-items: flex-start;
+  }
+  
+  .about-text {
+    flex: 1 1 600px;
+  }
+  
+  .about-image {
+    flex: 1 1 300px;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .about-image .profile-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 15px;
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.1);
+  }
+  
+  .text-title {
+    font-size: 2rem;
+    color: #4f46e5;
+    margin-bottom: 1rem;
+  }
+  
+  .about-list {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 1.5rem;
+  }
+  
+  .about-list li {
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+  }
+  
+  .about-text h4 {
+    margin-top: 1.5rem;
+    color: #1f2937;
+  }
+  
+  .about-text p {
+    margin-bottom: 1rem;
+    font-size: 1.05rem;
+    color: #333;
+  }
+  
+  @media (max-width: 768px) {
+    .about-flex {
+      flex-direction: column-reverse;
+      text-align: center;
+    }
+  
+    .about-image {
+      margin-bottom: 20px;
+    }
+  
+    .about-text {
+      text-align: left;
+    }
+  }
   

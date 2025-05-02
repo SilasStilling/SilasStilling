@@ -3,10 +3,10 @@ new fullpage('#fullpage', {
   scrollOverflow: true,
   navigation: true,
   anchors: ['hero', 'about', 'cv', 'contact'],
-  navigationTooltips: ['Hjem', 'Om mig', 'CV', 'Kontakt'],
+  navigationTooltips: ['Hjem', 'Om mig', 'CV', 'Kontakt'],  
   showActiveTooltip: true,
   scrollingSpeed: 700,
-  sectionsColor: ['#e0e7ff', '#ffffff', '#f9fafb', '#e2e8f0'], // ny farve til cv
+  sectionsColor: ['#e0e7ff', '#ffffff', '#f9fafb', '#e2e8f0'], 
   onLeave: function (origin, destination, direction) {
     AOS.refresh();
     updateScrollIndicator(origin, destination);

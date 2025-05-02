@@ -1,20 +1,22 @@
 new fullpage('#fullpage', {
-    autoScrolling: true,
-    navigation: true,
-    anchors: ['hero', 'about', 'projects', 'contact'],
-    navigationTooltips: ['Hjem', 'Om mig', 'Projekter', 'Kontakt'],
-    showActiveTooltip: true,
-    scrollingSpeed: 700,
-    sectionsColor: ['#e0e7ff', '#ffffff', '#f1f5f9', '#e2e8f0'],
-    onLeave: function (origin, destination, direction) {
-      AOS.refresh();
-      updateScrollIndicator(origin, destination);
-    },
-    afterRender: function () {
-      updateScrollIndicator(null, { index: 0 });
-    },
-    normalScrollElements: 'footer'
-  });
+  autoScrolling: true,
+  scrollOverflow: true,
+  navigation: true,
+  anchors: ['hero', 'about', 'cv', 'contact'],
+  navigationTooltips: ['Hjem', 'Om mig', 'CV', 'Kontakt'],
+  showActiveTooltip: true,
+  scrollingSpeed: 700,
+  sectionsColor: ['#e0e7ff', '#ffffff', '#f9fafb', '#e2e8f0'], // ny farve til cv
+  onLeave: function (origin, destination, direction) {
+    AOS.refresh();
+    updateScrollIndicator(origin, destination);
+  },
+  afterRender: function () {
+    updateScrollIndicator(null, { index: 0 });
+  },
+  normalScrollElements: 'footer'
+});
+
   
   
   

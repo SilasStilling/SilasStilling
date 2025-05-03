@@ -43,46 +43,57 @@ function updateScrollIndicator(origin, destination) {
   document.getElementById('scroll-indicator').style.width = `${percentage}%`;
 }
 
-// Typewriter effect
-const textsDa = ["Datamatiker studerende", "Kreativ Skaber", "Tech-Entusiast"];
-const textsEn = ["Computer Science Student", "Creative Maker", "Tech Enthusiast"];
-let currentTexts = [];
+// Typewriter setup (only run if element exists)
 const textElements = document.querySelector('.typewriter-text');
-let textIndex = 0;
-let characterIndex = 0;
-let speed = 100;
+if (textElements) {
+  const textsDa = ["Datamatiker studerende", "Kreativ Skaber", "Tech-Entusiast"];
+  const textsEn = ["Computer Science Student", "Creative Maker", "Tech Enthusiast"];
+  let currentTexts = [];
+  let textIndex = 0;
+  let characterIndex = 0;
+  const speed = 100;
 
-function typeWriter() {
-  if (characterIndex < currentTexts[textIndex].length) {
-    textElements.innerHTML += currentTexts[textIndex].charAt(characterIndex);
-    characterIndex++;
-    setTimeout(typeWriter, speed);
-  } else {
-    setTimeout(eraseText, 1000);
+  function typeWriter() {
+    if (characterIndex < currentTexts[textIndex].length) {
+      textElements.innerHTML += currentTexts[textIndex].charAt(characterIndex);
+      characterIndex++;
+      setTimeout(typeWriter, speed);
+    } else {
+      setTimeout(eraseText, 1000);
+    }
   }
-}
 
-function eraseText() {
-  if (textElements.innerHTML.length > 0) {
-    textElements.innerHTML = textElements.innerHTML.slice(0, -1);
-    setTimeout(eraseText, 50);
-  } else {
-    textIndex = (textIndex + 1) % currentTexts.length;
+  function eraseText() {
+    if (textElements.innerHTML.length > 0) {
+      textElements.innerHTML = textElements.innerHTML.slice(0, -1);
+      setTimeout(eraseText, 50);
+    } else {
+      textIndex = (textIndex + 1) % currentTexts.length;
+      characterIndex = 0;
+      setTimeout(typeWriter, 500);
+    }
+  }
+
+  function setupTypewriterTexts() {
+    const isDanish = window.location.pathname.includes('index.html') || window.location.pathname === '/';
+    currentTexts = isDanish ? textsDa : textsEn;
+    textElements.innerHTML = '';
+    textIndex = 0;
     characterIndex = 0;
-    setTimeout(typeWriter, 500);
+    typeWriter();
   }
+
+  setupTypewriterTexts();
 }
 
-// Language handling
 function setupLanguageToggle() {
   const btnDa = document.getElementById('lang-da');
   const btnEn = document.getElementById('lang-en');
 
-  btnDa.addEventListener('click', () => switchLanguage('da'));
-  btnEn.addEventListener('click', () => switchLanguage('en'));
+  btnDa?.addEventListener('click', () => switchLanguage('da'));
+  btnEn?.addEventListener('click', () => switchLanguage('en'));
 
   const isDanish = window.location.pathname.includes('index.html') || window.location.pathname === '/';
-  currentTexts = isDanish ? textsDa : textsEn;
 
   fullpage_api.setOptions({
     navigationTooltips: isDanish
@@ -90,14 +101,8 @@ function setupLanguageToggle() {
       : ['Home', 'About Me', 'CV', 'Esports', 'Contact']
   });
 
-  document.getElementById('lang-da').classList.toggle('active', isDanish);
-  document.getElementById('lang-en').classList.toggle('active', !isDanish);
-
-  // Start typewriter effect
-  textElements.innerHTML = '';
-  textIndex = 0;
-  characterIndex = 0;
-  typeWriter();
+  document.getElementById('lang-da')?.classList.toggle('active', isDanish);
+  document.getElementById('lang-en')?.classList.toggle('active', !isDanish);
 }
 
 function switchLanguage(lang) {
@@ -110,4 +115,6 @@ function switchLanguage(lang) {
   }
 }
 
-window.addEventListener('load', setupLanguageToggle);
+window.addEventListener('load', () => {
+  setupLanguageToggle();
+});

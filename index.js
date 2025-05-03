@@ -2,11 +2,11 @@ new fullpage('#fullpage', {
   autoScrolling: true,
   scrollOverflow: true,
   navigation: true,
-  anchors: ['hero', 'about', 'cv', 'esport', 'contact'], 
-  navigationTooltips: ['Hjem', 'Om mig', 'CV', 'Esport', 'Kontakt'],
+  anchors: ['hero', 'about', 'cv', 'esport', 'contact'],
+  navigationTooltips: [],
   showActiveTooltip: true,
   scrollingSpeed: 700,
-  sectionsColor: ['#e0e7ff', '#ffffff', '#f9fafb', '#e2e8f0'], 
+  sectionsColor: ['#e0e7ff', '#ffffff', '#f9fafb', '#e2e8f0'],
   onLeave: function (origin, destination, direction) {
     AOS.refresh();
     updateScrollIndicator(origin, destination);
@@ -17,85 +17,97 @@ new fullpage('#fullpage', {
   normalScrollElements: 'footer'
 });
 
-  
-  
-  
-  // AOS init
-  AOS.init({
-    duration: 1000,
-    once: false
+AOS.init({
+  duration: 1000,
+  once: false
+});
+
+const hamburger = document.getElementById('hamburger');
+const navLinks = document.getElementById('nav-links');
+
+hamburger.addEventListener('click', () => {
+  navLinks.classList.toggle('open');
+  hamburger.classList.toggle('active');
+});
+
+document.querySelectorAll('.nav-links a').forEach(link => {
+  link.addEventListener('click', () => {
+    navLinks.classList.remove('open');
+    hamburger.classList.remove('active');
   });
-  
-  // Hamburger toggle
-  const hamburger = document.getElementById('hamburger');
-  const navLinks = document.getElementById('nav-links');
-  
-  hamburger.addEventListener('click', () => {
-    navLinks.classList.toggle('open');
-    hamburger.classList.toggle('active'); // tilføjer animation
-  });
-  
-  // Luk menuen når der klikkes på et link (mobil)
-  document.querySelectorAll('.nav-links a').forEach(link => {
-    link.addEventListener('click', () => {
-      navLinks.classList.remove('open');
-      hamburger.classList.remove('active'); // fjern animation
-    });
-  });
-  
-  
-  // Scroll indicator
+});
+
 function updateScrollIndicator(origin, destination) {
-    const totalSections = document.querySelectorAll('.section').length;
-    const percentage = ((destination.index + 1) / totalSections) * 100;
-    document.getElementById('scroll-indicator').style.width = `${percentage}%`;
-  }
-  
+  const totalSections = document.querySelectorAll('.section').length;
+  const percentage = ((destination.index + 1) / totalSections) * 100;
+  document.getElementById('scroll-indicator').style.width = `${percentage}%`;
+}
 
-  const texts = [
-    "Datamatiker studerende",
-    "Kreativ Skaber",
-    "Tech-Entusiast"
-  ];
-  
-  let speed = 100;
-  const textElements = document.querySelector('.typewriter-text');
-  let textIndex = 0;
-  let characterIndex = 0;
-  
-  function typeWriter() {
-    if (characterIndex < texts[textIndex].length) {
-      textElements.innerHTML += texts[textIndex].charAt(characterIndex);
-      characterIndex++;
-      setTimeout(typeWriter, speed);
-    } else {
-      setTimeout(eraseText, 1000);
-    }
-  }
-  
-  function eraseText() {
-    if (textElements.innerHTML.length > 0) {
-      textElements.innerHTML = textElements.innerHTML.slice(0, -1);
-      setTimeout(eraseText, 50);
-    } else {
-      textIndex = (textIndex + 1) % texts.length;
-      characterIndex = 0;
-      setTimeout(typeWriter, 500);
-    }
-  }
-  
-  window.addEventListener('load', typeWriter);
-  
+// Typewriter effect
+const textsDa = ["Datamatiker studerende", "Kreativ Skaber", "Tech-Entusiast"];
+const textsEn = ["Computer Science Student", "Creative Maker", "Tech Enthusiast"];
+let currentTexts = [];
+const textElements = document.querySelector('.typewriter-text');
+let textIndex = 0;
+let characterIndex = 0;
+let speed = 100;
 
-  fetch('https://open.faceit.com/data/v4/players?nickname=devex', {
-    headers: {
-      'Authorization': 'Bearer DIN_FACEIT_API_NØGLE'
-    }
-  })
-    .then(response => response.json())
-    .then(data => {
-      const elo = data.games.csgo.faceit_elo;
-      document.querySelector('.esport-profile').insertAdjacentHTML('beforeend', `<p>FACEIT ELO: ${elo}</p>`);
-    })
-    .catch(error => console.error('Fejl ved hentning af FACEIT data:', error));
-  
+function typeWriter() {
+  if (characterIndex < currentTexts[textIndex].length) {
+    textElements.innerHTML += currentTexts[textIndex].charAt(characterIndex);
+    characterIndex++;
+    setTimeout(typeWriter, speed);
+  } else {
+    setTimeout(eraseText, 1000);
+  }
+}
+
+function eraseText() {
+  if (textElements.innerHTML.length > 0) {
+    textElements.innerHTML = textElements.innerHTML.slice(0, -1);
+    setTimeout(eraseText, 50);
+  } else {
+    textIndex = (textIndex + 1) % currentTexts.length;
+    characterIndex = 0;
+    setTimeout(typeWriter, 500);
+  }
+}
+
+// Language handling
+function setupLanguageToggle() {
+  const btnDa = document.getElementById('lang-da');
+  const btnEn = document.getElementById('lang-en');
+
+  btnDa.addEventListener('click', () => switchLanguage('da'));
+  btnEn.addEventListener('click', () => switchLanguage('en'));
+
+  const isDanish = window.location.pathname.includes('index.html') || window.location.pathname === '/';
+  currentTexts = isDanish ? textsDa : textsEn;
+
+  fullpage_api.setOptions({
+    navigationTooltips: isDanish
+      ? ['Hjem', 'Om mig', 'CV', 'Esport', 'Kontakt']
+      : ['Home', 'About Me', 'CV', 'Esports', 'Contact']
+  });
+
+  document.getElementById('lang-da').classList.toggle('active', isDanish);
+  document.getElementById('lang-en').classList.toggle('active', !isDanish);
+
+  // Start typewriter effect
+  textElements.innerHTML = '';
+  textIndex = 0;
+  characterIndex = 0;
+  typeWriter();
+}
+
+function switchLanguage(lang) {
+  const isDanish = window.location.pathname.includes('index.html') || window.location.pathname === '/';
+
+  if (lang === 'da' && !isDanish) {
+    window.location.href = 'index.html';
+  } else if (lang === 'en' && isDanish) {
+    window.location.href = 'index-en.html';
+  }
+}
+
+window.addEventListener('load', setupLanguageToggle);

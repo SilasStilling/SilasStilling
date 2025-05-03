@@ -2,8 +2,8 @@ new fullpage('#fullpage', {
   autoScrolling: true,
   scrollOverflow: true,
   navigation: true,
-  anchors: ['hero', 'about', 'cv', 'contact'],
-  navigationTooltips: ['Hjem', 'Om mig', 'CV', 'Kontakt'],  
+  anchors: ['hero', 'about', 'cv', 'esport', 'contact'], 
+  navigationTooltips: ['Hjem', 'Om mig', 'CV', 'Esport', 'Kontakt'],
   showActiveTooltip: true,
   scrollingSpeed: 700,
   sectionsColor: ['#e0e7ff', '#ffffff', '#f9fafb', '#e2e8f0'], 
@@ -85,4 +85,17 @@ function updateScrollIndicator(origin, destination) {
   }
   
   window.addEventListener('load', typeWriter);
+  
+
+  fetch('https://open.faceit.com/data/v4/players?nickname=devex', {
+    headers: {
+      'Authorization': 'Bearer DIN_FACEIT_API_NØGLE'
+    }
+  })
+    .then(response => response.json())
+    .then(data => {
+      const elo = data.games.csgo.faceit_elo;
+      document.querySelector('.esport-profile').insertAdjacentHTML('beforeend', `<p>FACEIT ELO: ${elo}</p>`);
+    })
+    .catch(error => console.error('Fejl ved hentning af FACEIT data:', error));
   

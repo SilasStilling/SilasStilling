@@ -501,3 +501,88 @@ body {
   justify-content: space-between;
   height: 100%; 
 }
+
+/* esport-specific styling */
+.section.esport {
+  background: #f8fafc;
+  padding: 60px 20px;
+}
+
+.esport-flex {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+  align-items: center;
+}
+
+.esport-gallery {
+  flex: 1 1 600px;
+}
+
+.gallery-images {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.gallery-images img {
+  max-width: calc(50% - 7.5px);
+  height: 200px;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+
+
+.esport-player-photo {
+  flex: 1 1 300px;
+  display: flex;
+  justify-content: center;
+}
+
+.esport-player-photo img {
+  width: 100%;
+  max-width: 250px;
+  height: auto;
+}
+
+.esport-links {
+  margin-top: 20px;
+}
+
+.esport-links a {
+  display: inline-block;
+  margin-right: 15px;
+  margin-top: 10px;
+  color: #4f46e5;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.esport-links a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  .esport-flex {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .gallery-images img {
+    width: 100%;
+  }
+
+  .esport-player-photo {
+    margin-top: 30px;
+  }
+}
+.cam-image {
+  height: 300px;
+  width: auto;
+}

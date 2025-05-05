@@ -627,3 +627,25 @@ body {
   background-color: #4f46e5;
   color: white;
 }
+
+/* Default styling for larger screens */
+.contact-icon {
+  font-size: 3rem;
+  text-align: center;
+  margin: 20px auto;
+}
+
+/* Responsive styling for smaller screens */
+@media (max-width: 768px) {
+  .contact-icon {
+    font-size: 2rem;
+    margin: 10px auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .contact-icon {
+    font-size: 1.5rem;
+    margin: 5px auto;
+  }
+}

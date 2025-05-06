@@ -47,7 +47,7 @@ function updateScrollIndicator(origin, destination) {
 const textElements = document.querySelector('.typewriter-text');
 if (textElements) {
   const textsDa = ["Datamatiker studerende", "Kreativ Skaber", "Tech-Entusiast"];
-  const textsEn = ["Computer Science Student", "Creative Maker", "Tech Enthusiast"];
+  const textsEn = ["Computer Science Student", "Creative Creator", "Tech Enthusiast"];
   let currentTexts = [];
   let textIndex = 0;
   let characterIndex = 0;

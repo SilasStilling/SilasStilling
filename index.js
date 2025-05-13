@@ -2,7 +2,7 @@ new fullpage('#fullpage', {
   autoScrolling: true,
   scrollOverflow: true,
   navigation: true,
-  anchors: ['hero', 'about', 'cv', 'esport', 'contact'],
+  anchors: ['hero', 'about', 'cv', 'projects', 'esport', 'contact'],
   navigationTooltips: [],
   showActiveTooltip: true,
   scrollingSpeed: 700,
@@ -97,8 +97,8 @@ function setupLanguageToggle() {
 
   fullpage_api.setOptions({
     navigationTooltips: isDanish
-      ? ['Hjem', 'Om mig', 'CV', 'Esport', 'Kontakt']
-      : ['Home', 'About Me', 'CV', 'Esports', 'Contact']
+      ? ['Hjem', 'Om mig', 'CV', 'Projekter', 'Esport', 'Kontakt']
+      : ['Home', 'About Me', 'CV', 'projects', 'Esports', 'Contact']
   });
 
   document.getElementById('lang-da')?.classList.toggle('active', isDanish);
